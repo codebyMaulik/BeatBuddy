@@ -1,28 +1,23 @@
 <div class="queu-list" [ngClass]="isqueuOpen ? 'active' : ''">
-    <mat-card
-      class="example-card"
-      *ngFor="let song of queue; let i = index"
-      [ngClass]="i === current ? 'active' : ''"
-    >
+  <h2>playlist</h2>
+    <div class="card" *ngFor="let song of queue; let i = index" [ngClass]="i === current ? 'active' : ''">
       <ng-container *ngIf="song">
-        <mat-card-header>
+        <div class="card-header">
           <img mat-card-sm-image src="{{ song.image[2].link }}" />
-          <mat-card-title-group>
-            <mat-card-title [innerHTML]="song.name"></mat-card-title>
-            <mat-card-subtitle [innerHTML]="song.album.name"></mat-card-subtitle>
-            <mat-card-subtitle
-              [innerHTML]="song.primaryArtists"
-            ></mat-card-subtitle>
-          </mat-card-title-group>
+          <div class="title-group">
+            <div class="title" [innerHTML]="song.name"></div>
+            <div class="subtitle" [innerHTML]="song.album.name"></div>
+            <div class="subtitle" [innerHTML]="song.primaryArtists"></div>
+          </div>
           <div class="button-wrap">
             <i class="fas fa-play" (click)="playAudio(i)"></i>
           </div>
           <div class="button-wrap">
             <i class="fas fa-trash" (click)="remQueue(i)"></i>
           </div>
-        </mat-card-header>
+        </div>
       </ng-container>
-    </mat-card>
+    </div>
   </div>
   
   <div class="my-player" [ngClass]="queue.length > 0 ? 'active' : ''">

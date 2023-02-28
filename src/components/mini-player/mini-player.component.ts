@@ -43,7 +43,8 @@ export class MiniPlayerComponent implements OnInit {
 
     //getfull-album
     this._getsong.album$.subscribe((album) => {
-      console.log(album);
+      // console.log(album);
+      this.clearQueu()
       for (let i = 0; i < album.length; i++) {
         this.queue.push(album[i]);
       }
@@ -128,4 +129,7 @@ export class MiniPlayerComponent implements OnInit {
     }, 500);
   }
 
+  clearQueu(){
+    this.queue = [];
+  }
 }
