@@ -1,0 +1,33 @@
+<div class="search-wrap">
+    <input
+      type="text"
+      #seachSongName
+      placeholder="Search your favorite song"
+      (keyup)="findSong($event)"
+    />
+    <i
+      class="fa-solid fa-xmark"
+      [ngClass]="seachSongName.value.length > 0 ? 'active' : ''"
+      (click)="findSong(null)"
+    ></i>
+  </div>
+  <div style="display:none" *ngFor="let result of results$ | async"></div>
+  <div class="search-result" [ngClass]="songResult?.length > 0 ? 'active' : ''">
+    <mat-card
+      class="example-card"
+      *ngFor="let song of songResult"
+      (click)="getsong(song)"
+    >
+      <mat-card-header>
+        <img mat-card-sm-image src="{{ song.image[2].link }}" />
+        <mat-card-title-group>
+          <mat-card-title [innerHTML]="song.name"></mat-card-title>
+          <mat-card-subtitle [innerHTML]="song.album.name"></mat-card-subtitle>
+          <mat-card-subtitle
+            [innerHTML]="song.primaryArtists"
+          ></mat-card-subtitle>
+        </mat-card-title-group>
+      </mat-card-header>
+    </mat-card>
+  </div>
+  
