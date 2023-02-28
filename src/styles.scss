@@ -1,1 +1,51 @@
 /* You can add global styles to this file, and also import other style files */
+/* Add application styles & imports to this file! */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,300;0,500;0,600;0,700;1,400&display=swap');
+* {
+  font-family: 'Montserrat', sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  background: rgb(35, 35, 35);
+  overflow: hidden;
+  color: white;
+  box-sizing: border-box;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #041c32;
+}
+app-app {
+  height: 100vh;
+  width: 100%;
+}
+
+app-search {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-flow: column;
+  overflow: hidden;
+}
+
+app-mini-player {
+  width: 100%;
+  background: white;
+}
+
+/* customecss------------------------- */
+
+* {
+  box-sizing: border-box;
+}
+
+.icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}

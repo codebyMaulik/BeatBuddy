@@ -6,7 +6,7 @@ import { SaavanService } from 'src/services/saavan.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['../demo-styling.scss']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   title = 'beatbuddy';
