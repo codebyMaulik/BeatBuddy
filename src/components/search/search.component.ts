@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable, Subject, Subscription } from 'rxjs';
 import { SaavanService } from 'src/services/saavan.service';
 import {
@@ -7,6 +7,7 @@ import {
   distinctUntilChanged,
   map,
 } from 'rxjs/operators';
+import { AddSongService } from 'src/services/add-song.service';
 
 @Component({
   selector: 'app-search',
@@ -21,11 +22,15 @@ export class SearchComponent implements OnInit {
   subscription: Subscription;
   searchsong:any;
   songResult:any;
+  @ViewChild('seachSongName', {static : true}) searchtextbox;
+
   constructor(
     private _saavan: SaavanService,
+    private _addSong: AddSongService
   ) { }
 
   ngOnInit(): void {
+    this.searchtextbox.nativeElement.focus(); //focus on textbox
     this.results$ = this.subject.pipe(
       debounceTime(1000),
       map((searchText) => {
@@ -40,10 +45,14 @@ export class SearchComponent implements OnInit {
         }
       })
     );
-    console.log(this.results$, 'sssss');
+    // console.log(this.results$, 'sssss');
   }
   findSong(name:any) {
     const searchText = name.target.value;
     this.subject.next(searchText);
+  }
+  getsong(songinfo) {
+    // console.log(songinfo)
+    this._addSong.changeMessage(songinfo);
   }
 }
