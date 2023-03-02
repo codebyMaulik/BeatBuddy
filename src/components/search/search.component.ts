@@ -51,8 +51,8 @@ export class SearchComponent implements OnInit {
     const searchText = name.target.value;
     this.subject.next(searchText);
   }
-  getsong(songinfo) {
-    // console.log(songinfo)
-    this._addSong.changeMessage(songinfo);
+  getsong(songinfo,type) {
+    // console.log(songinfo,type)
+    this._addSong.changeMessage(songinfo,type);
   }
 }

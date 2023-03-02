@@ -13,16 +13,18 @@
   </div>
   <div style="display:none" *ngFor="let result of results$ | async"></div>
   <div class="search-result" [ngClass]="songResult?.length > 0 ? 'active' : ''">
-    <div class="example-card"*ngFor="let song of songResult"(click)="getsong(song)">
+    <div class="example-card"*ngFor="let song of songResult">
       <div class="card-header">
         <img mat-card-sm-image src="{{ song.image[2].link }}" />
         <div class="title-group">
           <div class="title" [innerHTML]="song.name"></div>
           <div class="subtitle" [innerHTML]="song.album.name"></div>
-          <div class="subtitle"
-            [innerHTML]="song.primaryArtists"
-          ></div>
+          <div class="subtitle"[innerHTML]="song.primaryArtists"></div>
         </div>
+      </div>
+      <div class="button-group">
+        <i class="fa-solid fa-play"(click)="getsong(song,'play')"></i>
+        <i class="fa-solid fa-list-ol" (click)="getsong(song,'addQueue')"></i>
       </div>
     </div>
   </div>

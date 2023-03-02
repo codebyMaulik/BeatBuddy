@@ -28,10 +28,13 @@ export class MiniPlayerComponent implements OnInit {
     private _getsong: AddSongService,
     private _saavan: SaavanService
   ) {
+    //addsingle song
     this._getsong.mymethod$.subscribe((data) => {
-      console.log('mini-player', data);
-      // this.getsong = data.album.id;
-      this._saavan.getsong(data.id).subscribe((song) => {
+      // console.log('mini-player', data['data'].id);
+      this._saavan.getsong(data['data'].id).subscribe((song) => {
+        if(data.type == 'play'){
+          this.clearQueu()
+        }
         this.getsong = song['data'];
         this.queue.push(this.getsong[0]);
         if (this.queue.length <= 1) {
