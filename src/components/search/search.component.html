@@ -4,11 +4,12 @@
       #seachSongName
       placeholder="Search your favorite song"
       (keyup)="findSong($event)"
+      [value]="searchsong"
     />
     <i
       class="fa-solid fa-xmark"
       [ngClass]="seachSongName.value.length > 0 ? 'active' : ''"
-      (click)="findSong(null)"
+      (click)="clearSearch()"
     ></i>
   </div>
   <div style="display:none" *ngFor="let result of results$ | async"></div>

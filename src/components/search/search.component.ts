@@ -20,7 +20,7 @@ export class SearchComponent implements OnInit {
   subject = new Subject();
   addThisSong:any;
   subscription: Subscription;
-  searchsong:any;
+  searchsong = null;
   songResult:any;
   @ViewChild('seachSongName', {static : true}) searchtextbox;
 
@@ -54,5 +54,9 @@ export class SearchComponent implements OnInit {
   getsong(songinfo,type) {
     // console.log(songinfo,type)
     this._addSong.changeMessage(songinfo,type);
+  }
+  clearSearch(){
+    this.songResult = [];
+    this.searchsong = null;
   }
 }
