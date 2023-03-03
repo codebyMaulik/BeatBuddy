@@ -16,9 +16,9 @@ export class AddSongService {
     this.album$ = this.AlbumSubject.asObservable();
   }
 
-  changeMessage(data) {
-    console.log(data);
-    this.MyMEthodSubject.next(data);
+  changeMessage(data,type) {
+    // console.log(data,type);
+    this.MyMEthodSubject.next({data,type});
     // this.messageSource.next(message);
   }
 
