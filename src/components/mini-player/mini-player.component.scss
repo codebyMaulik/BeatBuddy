@@ -1,3 +1,6 @@
+$small: 400px;
+$medium: 900px;
+
 .queu-list {
     position: absolute;
     bottom: 0;
@@ -106,6 +109,9 @@
       display: flex;
       position: relative;
       flex-flow: column;
+      @media screen and (max-width: $small) {
+        min-width: 90%;
+      }
       .top {
         position: relative;
         height: 10px;
@@ -140,6 +146,10 @@
             height: 70px;
             background-color: white;
             width: 70px;
+            @media screen and (max-width: $small) {
+             height: 60px;
+             width: 60px;
+            }
           }
           .song-detail {
             color: white;
@@ -148,6 +158,9 @@
             display: flex;
             flex-flow: column;
             justify-content: center;
+            @media screen and (max-width: $small) {
+              max-width: 160px;
+            }
             .song-title {
               font-size: 15px;
               text-transform: capitalize;

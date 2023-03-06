@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 export class SaavanService {
 
   constructor(private _httpclient: HttpClient) {}
-  jiosaavaUrl = 'https://saavn.me/';
+  jiosaavaUrl = 'https://beatbuddy.vercel.app/';
   searchSong(query: any) {
     let searchurl = this.jiosaavaUrl + 'search/songs?query=' + encodeURI(query);
     // console.log(searchurl);
