@@ -1,26 +1,26 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AddSongService } from 'src/services/add-song.service';
-import { SaavanService } from 'src/services/saavan.service';
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AddSongService } from "src/services/add-song.service";
+import { SaavanService } from "src/services/saavan.service";
 
 @Component({
-  selector: 'app-mini-player',
-  templateUrl: './mini-player.component.html',
-  styleUrls: ['./mini-player.component.scss']
+  selector: "app-mini-player",
+  templateUrl: "./mini-player.component.html",
+  styleUrls: ["./mini-player.component.scss"],
 })
 export class MiniPlayerComponent implements OnInit {
-
+  isalbum: boolean;
   isqueAdded = false;
   songmaxtime = 0;
   soncurrenttime = 0;
   defultart =
-    'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80';
+    "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80";
   isPlay = false;
   isqueuOpen = false;
   queue = [];
   public getsong;
   current = 0;
-  currentSong = [{ songurl: '', title: '', Artist: '', art: '' }];
-  @ViewChild('audioElement', { static: false })
+  currentSong = [{ songurl: "", title: "", Artist: "", art: "" }];
+  @ViewChild("audioElement", { static: false })
   public _audioRef: ElementRef;
   private audio: HTMLMediaElement;
 
@@ -31,11 +31,12 @@ export class MiniPlayerComponent implements OnInit {
     //addsingle song
     this._getsong.mymethod$.subscribe((data) => {
       // console.log('mini-player', data['data'].id);
-      this._saavan.getsong(data['data'].id).subscribe((song) => {
-        if(data.type == 'play'){
-          this.clearQueu()
+      this.isalbum = false;
+      this._saavan.getsong(data["data"].id).subscribe((song) => {
+        if (data.type == "play") {
+          this.clearQueu();
         }
-        this.getsong = song['data'];
+        this.getsong = song["data"];
         this.queue.push(this.getsong[0]);
         if (this.queue.length <= 1) {
           this.playAudio(0);
@@ -47,7 +48,8 @@ export class MiniPlayerComponent implements OnInit {
     //getfull-album
     this._getsong.album$.subscribe((album) => {
       // console.log(album);
-      this.clearQueu()
+      this.isalbum = true;
+      this.clearQueu();
       for (let i = 0; i < album.length; i++) {
         this.queue.push(album[i]);
       }
@@ -64,13 +66,15 @@ export class MiniPlayerComponent implements OnInit {
     this.currentSong = [];
     this.currentSong = [
       {
-        songurl: this.queue[index].downloadUrl[4].link,
+        songurl:
+          this.queue[index].downloadUrl[4].link ||
+          this.queue[index].downloadUrl[4].url,
         title: this.queue[index].name,
-        Artist: this.queue[index].primaryArtists,
+        Artist: this.queue[index].artists.primary[0].name,
         art: this.queue[index].image[1].link,
       },
     ];
-    // console.log('play', this.currentSong);
+    console.log("playing-right-now", this.currentSong);
     this.audio = this._audioRef.nativeElement;
     this.audio.load();
     this.audio.play();
@@ -105,17 +109,17 @@ export class MiniPlayerComponent implements OnInit {
   }
   playPause(isplay?) {
     if (this.isPlay) {
-      console.log('here');
+      console.log("here");
       this.audio.pause();
     } else {
-      console.log('there');
+      console.log("there");
       this.audio.play();
     }
     this.isPlay = !this.isPlay;
   }
   remQueue(index?) {
     if (this.queue.length == 1) {
-      alert('last song can not be deleted');
+      alert("last song can not be deleted");
     } else {
       this.queue.splice(index, 1);
     }
@@ -132,7 +136,7 @@ export class MiniPlayerComponent implements OnInit {
     }, 500);
   }
 
-  clearQueu(){
+  clearQueu() {
     this.queue = [];
   }
 }

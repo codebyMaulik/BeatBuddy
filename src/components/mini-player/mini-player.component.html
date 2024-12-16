@@ -1,80 +1,84 @@
 <div class="queu-list" [ngClass]="isqueuOpen ? 'active' : ''">
   <h2>playlist</h2>
-    <div class="card" *ngFor="let song of queue; let i = index" [ngClass]="i === current ? 'active' : ''">
-      <ng-container *ngIf="song">
-        <div class="card-header">
-          <img mat-card-sm-image src="{{ song.image[2].link }}" />
-          <div class="title-group">
-            <div class="title" [innerHTML]="song.name"></div>
-            <div class="subtitle" [innerHTML]="song.album.name"></div>
-            <div class="subtitle" [innerHTML]="song.primaryArtists"></div>
-          </div>
-          <div class="button-wrap">
-            <i class="fas fa-play" (click)="playAudio(i)"></i>
-          </div>
-          <div class="button-wrap">
-            <i class="fas fa-trash" (click)="remQueue(i)"></i>
-          </div>
+  <div
+    class="card"
+    *ngFor="let song of queue; let i = index"
+    [ngClass]="i === current ? 'active' : ''"
+  >
+    <ng-container *ngIf="song">
+      <div class="card-header">
+        <p>{{ song | json }}</p>
+        <img mat-card-sm-image src="{{ song.image[2].url }}" />
+        <div class="title-group">
+          <div class="title" [innerHTML]="song.name"></div>
+          <div class="subtitle" [innerHTML]="song.album.name"></div>
+          <div class="subtitle" [innerHTML]="song.primaryArtists"></div>
         </div>
-      </ng-container>
-    </div>
-  </div>
-  
-  <div class="my-player" [ngClass]="queue.length > 0 ? 'active' : ''">
-    <div class="player">
-      <div class="top">
-        <input
-          class="progressbar"
-          type="range"
-          [value]="soncurrenttime"
-          name="volume"
-          (change)="volume($event)"
-          [max]="songmaxtime"
-        />
+        <div class="button-wrap">
+          <i class="fas fa-play" (click)="playAudio(i)"></i>
+        </div>
+        <div class="button-wrap">
+          <i class="fas fa-trash" (click)="remQueue(i)"></i>
+        </div>
       </div>
-      <div class="bottom">
-        <div class="left">
-          <div class="img">
-            <img
-              [src]="currentSong[0].art != '' ? currentSong[0].art : defultart"
-              alt=""
-            />
-          </div>
-          <div class="song-detail">
-            <p class="song-title" [innerHTML]="currentSong[0].title"></p>
-            <p class="sub-detail" [innerHTML]="currentSong[0].Artist"></p>
-            <div class="button-group">
-              <i class="fa-regular fa-heart"></i>
-              <i class="fa-solid fa-fire"></i>
-              <i
-                class="fa-solid fa-bars-staggered"
-                [ngClass]="isqueAdded ? 'active' : ''"
-                (click)="openQueu()"
-              >
-                {{ queue.length }}</i
-              >
-            </div>
-          </div>
+    </ng-container>
+  </div>
+</div>
+
+<div class="my-player" [ngClass]="queue.length > 0 ? 'active' : ''">
+  <div class="player">
+    <div class="top">
+      <input
+        class="progressbar"
+        type="range"
+        [value]="soncurrenttime"
+        name="volume"
+        (change)="volume($event)"
+        [max]="songmaxtime"
+      />
+    </div>
+    <div class="bottom">
+      <div class="left">
+        <div class="img">
+          <img
+            [src]="currentSong[0].art != '' ? currentSong[0].art : defultart"
+            alt=""
+          />
         </div>
-        <div class="right">
-          <div class="play-button">
-            <i class="fa-solid fa-backward-step" (click)="playPrevSong()"></i>
+        <div class="song-detail">
+          <p class="song-title" [innerHTML]="currentSong[0].title"></p>
+          <p class="sub-detail" [innerHTML]="currentSong[0].Artist"></p>
+          <div class="button-group">
+            <i class="fa-regular fa-heart"></i>
+            <i class="fa-solid fa-fire"></i>
             <i
-              (click)="playPause()"
-              class="fa-solid"
-              [ngClass]="isPlay ? 'fa-pause' : 'fa-play'"
-            ></i>
-            <i class="fa-solid fa-forward-step" (click)="playNextSong()"></i>
+              class="fa-solid fa-bars-staggered"
+              [ngClass]="isqueAdded ? 'active' : ''"
+              (click)="openQueu()"
+            >
+              {{ queue.length }}</i
+            >
           </div>
         </div>
       </div>
+      <div class="right">
+        <div class="play-button">
+          <i class="fa-solid fa-backward-step" (click)="playPrevSong()"></i>
+          <i
+            (click)="playPause()"
+            class="fa-solid"
+            [ngClass]="isPlay ? 'fa-pause' : 'fa-play'"
+          ></i>
+          <i class="fa-solid fa-forward-step" (click)="playNextSong()"></i>
+        </div>
+      </div>
     </div>
-    <div class="player-big"></div>
   </div>
-  
-  <audio controls #audioElement (ended)="playNextSong()" style="display:none">
-    <source src="{{ currentSong[0].songurl }}" type="audio/ogg" />
-    <source src="{{ currentSong[0].songurl }}" type="audio/mpeg" />
-    Your browser does not support the audio tag.
-  </audio>
-  
+  <div class="player-big"></div>
+</div>
+
+<audio controls #audioElement (ended)="playNextSong()" style="display: none">
+  <source src="{{ currentSong[0].songurl }}" type="audio/ogg" />
+  <source src="{{ currentSong[0].songurl }}" type="audio/mpeg" />
+  Your browser does not support the audio tag.
+</audio>
