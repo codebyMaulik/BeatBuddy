@@ -89,11 +89,12 @@ export class MiniPlayerComponent implements OnInit {
       },
     ];
     // console.log("current-song", this.queue[index]);
+    this.setupMediaSession();
     this.audio = this._audioRef.nativeElement;
     this.audio.load();
+    this.audio.src = this.currentSong[0].songurl;
     this.audio.play();
     this.isPlay = true;
-    this.setupMediaSession();
     this.audio.ontimeupdate = () => {
       this.songmaxtime = this.audio.duration;
       this.soncurrenttime = this.audio.currentTime;
@@ -165,7 +166,6 @@ export class MiniPlayerComponent implements OnInit {
     this.queue = [];
   }
   setupMediaSession() {
-    console.log(this.currentSong["title"]);
     if ("mediaSession" in navigator) {
       navigator.mediaSession.metadata = new MediaMetadata({
         title: this.currentSong[0].title,
