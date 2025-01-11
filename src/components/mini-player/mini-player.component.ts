@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from "@angular/core";
 import { AddSongService } from "src/services/add-song.service";
 import { SaavanService } from "src/services/saavan.service";
 
@@ -56,9 +62,18 @@ export class MiniPlayerComponent implements OnInit {
       this.playAudio(0);
       this.animate();
     });
+    // if ("mediaSession" in navigator) {
+    //   this.setupMediaSession();
+    // }
   }
 
   ngOnInit() {}
+
+  @HostListener("document:keydown.space", ["$event"])
+  onSpacebarPress(event: KeyboardEvent): void {
+    event.preventDefault();
+    this.playPause();
+  }
 
   playAudio(index?) {
     this.current = index;
@@ -70,14 +85,15 @@ export class MiniPlayerComponent implements OnInit {
           this.queue[index].downloadUrl[4].url,
         title: this.queue[index].name,
         Artist: this.queue[index].artists.primary[0].name,
-        art: this.queue[index].image[1].url,
+        art: this.queue[index].image[2].url,
       },
     ];
-    console.log("current-song", this.queue[index]);
+    // console.log("current-song", this.queue[index]);
     this.audio = this._audioRef.nativeElement;
     this.audio.load();
     this.audio.play();
     this.isPlay = true;
+    this.setupMediaSession();
     this.audio.ontimeupdate = () => {
       this.songmaxtime = this.audio.duration;
       this.soncurrenttime = this.audio.currentTime;
@@ -106,14 +122,27 @@ export class MiniPlayerComponent implements OnInit {
     this.isPlay = true;
     this.playAudio(this.current);
   }
-  playPause(isplay?) {
-    if (this.isPlay) {
-      this.audio.pause();
+  playPause(isplay?: boolean) {
+    // If a specific isplay state is passed, use it, otherwise toggle play/pause
+    if (isplay === undefined) {
+      this.isPlay = !this.isPlay;
     } else {
-      this.audio.play();
+      this.isPlay = isplay;
     }
-    this.isPlay = !this.isPlay;
+
+    if (this.isPlay) {
+      this.audio.play();
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.playbackState = "playing";
+      }
+    } else {
+      this.audio.pause();
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.playbackState = "paused";
+      }
+    }
   }
+
   remQueue(index?) {
     if (this.queue.length == 1) {
       alert("last song can not be deleted");
@@ -134,5 +163,28 @@ export class MiniPlayerComponent implements OnInit {
 
   clearQueu() {
     this.queue = [];
+  }
+  setupMediaSession() {
+    console.log(this.currentSong["title"]);
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: this.currentSong[0].title,
+        // artist: this.artist,
+        album: "Album Name", // You can change this dynamically
+        artwork: [
+          {
+            src: this.currentSong[0].art,
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+      });
+      navigator.mediaSession.setActionHandler("nexttrack", () =>
+        this.playNextSong()
+      );
+      navigator.mediaSession.setActionHandler("previoustrack", () =>
+        this.playPrevSong()
+      );
+    }
   }
 }

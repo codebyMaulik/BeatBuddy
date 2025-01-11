@@ -7,12 +7,12 @@
   >
     <ng-container *ngIf="song">
       <div class="card-header">
-        <p>{{ song | json }}</p>
+        <!-- <p>{{ song | json }}</p> -->
         <img mat-card-sm-image src="{{ song.image[2].url }}" />
         <div class="title-group">
           <div class="title" [innerHTML]="song.name"></div>
-          <div class="subtitle" [innerHTML]="song.album.name"></div>
-          <div class="subtitle" [innerHTML]="song.primaryArtists"></div>
+          <!-- <div class="subtitle" [innerHTML]="song.album.name"></div> -->
+          <div class="subtitle" [innerHTML]="song.Artist"></div>
         </div>
         <div class="button-wrap">
           <i class="fas fa-play" (click)="playAudio(i)"></i>

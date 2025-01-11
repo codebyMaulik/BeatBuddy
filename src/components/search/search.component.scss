@@ -103,15 +103,27 @@
         grid-column-gap: 5px;
         grid-row-gap: 5px;
         grid-template-columns: repeat(auto-fill, 105px);
+        list-style: none;
         .album {
           padding: 5px;
+          display: flex;
+          flex-direction: column;
+          align-content: center;
+          justify-content: center;
+          align-items: stretch;
+          cursor: pointer;
+          transition: all 0.35s ease-in-out;
           .album-art {
             height: 50px;
             position: relative;
+            object-fit: cover;
           }
           .album-name {
             margin-top: 10px;
             font-size: 10px;
+          }
+          &:hover {
+            background-color: yellowgreen;
           }
         }
       }

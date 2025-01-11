@@ -62,8 +62,8 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  findSong(name) {
-    const searchText = name.target.value;
+  findSong(name: any) {
+    const searchText = name ? name.target.value : "";
     this.subject.next(searchText);
   }
 
@@ -72,7 +72,7 @@ export class SearchComponent implements OnInit {
   }
 
   viewall() {
-    console.log("p");
+    // console.log("p");
   }
   gettop(data, playlist?) {
     if (playlist) {

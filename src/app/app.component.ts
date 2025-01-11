@@ -53,12 +53,19 @@ export class AppComponent implements OnInit {
   }
   getCharts(chart) {
     this._saavan.getPlaylist(chart.id).subscribe((data) => {
+      if (data["data"].songs.length == 0) {
+        alert("not available");
+        return;
+      }
       this._addSong.addAlbum(data["data"].songs);
     });
   }
   getTopAlbums(chart) {
     this._saavan.getPlaylist(chart.id).subscribe((data) => {
-      // console.log(data['data'].songs);
+      if (data["data"].songs.length == 0) {
+        alert("not available");
+        return;
+      }
       this._addSong.addAlbum(data["data"].songs);
     });
   }

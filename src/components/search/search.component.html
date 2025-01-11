@@ -4,6 +4,7 @@
     #seachSongName
     placeholder="Search your favorite song"
     (keyup)="findSong($event)"
+    [value]="seachSongName.value"
   />
   <i
     class="fa-solid fa-xmark"
@@ -13,7 +14,7 @@
 </div>
 <div style="display: none" *ngFor="let result of results$ | async"></div>
 <div class="search-result" [ngClass]="songResult?.length > 0 ? 'active' : ''">
-  <div class="artist-group msearch-group">
+  <!-- <div class="artist-group msearch-group">
     <h3 class="title-category">Artist</h3>
     <button type="button" class="v-all-btn" (click)="viewall()">
       View All
@@ -26,7 +27,7 @@
         </div>
       </li>
     </ul>
-  </div>
+  </div> -->
 
   <div class="album-group msearch-group">
     <h3 class="title-category">albums</h3>
@@ -43,7 +44,7 @@
     </ul>
   </div>
 
-  <div class="playlist-group msearch-group">
+  <!-- <div class="playlist-group msearch-group">
     <h3 class="title-category">best match</h3>
     <button type="button" class="v-all-btn" (click)="viewall()">
       View All
@@ -56,18 +57,18 @@
         </div>
       </li>
     </ul>
-  </div>
+  </div> -->
 
-  <div class="playlist-group msearch-group">
+  <div class="album-group msearch-group">
     <h3 class="title-category">PLAYLIST</h3>
     <button type="button" class="v-all-btn" (click)="viewall()">
       View All
     </button>
-    <ul class="play-list msearch-list">
-      <li *ngFor="let plist of playlistResult" (click)="gettop(plist, true)">
-        <div class="playlist">
-          <img src="{{ plist.image[1].link }}" alt="" class="plist-art" />
-          <p class="plist-name" [innerHTML]="plist.title"></p>
+    <ul class="album-list msearch-list">
+      <li *ngFor="let album of playlistResult" (click)="gettop(album)">
+        <div class="album">
+          <img src="{{ album.image[1].link }}" alt="" class="album-art" />
+          <p class="album-name" [innerHTML]="album.name"></p>
         </div>
       </li>
     </ul>
