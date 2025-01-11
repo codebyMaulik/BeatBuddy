@@ -1,32 +1,92 @@
 <div class="search-wrap">
-    <input
-      type="text"
-      #seachSongName
-      placeholder="Search your favorite song"
-      (keyup)="findSong($event)"
-      [value]="searchsong"
-    />
-    <i
-      class="fa-solid fa-xmark"
-      [ngClass]="seachSongName.value.length > 0 ? 'active' : ''"
-      (click)="clearSearch()"
-    ></i>
-  </div>
-  <div style="display:none" *ngFor="let result of results$ | async"></div>
-  <div class="search-result" [ngClass]="songResult?.length > 0 ? 'active' : ''">
-    <div class="example-card"*ngFor="let song of songResult">
-      <div class="card-header">
-        <img mat-card-sm-image src="{{ song.image[2].link }}" />
-        <div class="title-group">
-          <div class="title" [innerHTML]="song.name"></div>
-          <div class="subtitle" [innerHTML]="song.album.name"></div>
-          <div class="subtitle"[innerHTML]="song.primaryArtists"></div>
+  <input
+    type="text"
+    #seachSongName
+    placeholder="Search your favorite song"
+    (keyup)="findSong($event)"
+  />
+  <i
+    class="fa-solid fa-xmark"
+    [ngClass]="seachSongName.value.length > 0 ? 'active' : ''"
+    (click)="findSong(null)"
+  ></i>
+</div>
+<div style="display: none" *ngFor="let result of results$ | async"></div>
+<div class="search-result" [ngClass]="songResult?.length > 0 ? 'active' : ''">
+  <div class="artist-group msearch-group">
+    <h3 class="title-category">Artist</h3>
+    <button type="button" class="v-all-btn" (click)="viewall()">
+      View All
+    </button>
+    <ul class="artist-list msearch-list">
+      <li *ngFor="let artist of artistResult">
+        <div class="artist">
+          <img src="{{ artist.image[2].link }}" alt="" class="art-img" />
+          <p class="artist-name" [innerHTML]="artist.title"></p>
         </div>
-      </div>
-      <div class="button-group">
-        <i class="fa-solid fa-play"(click)="getsong(song,'play')"></i>
-        <i class="fa-solid fa-list-ol" (click)="getsong(song,'addQueue')"></i>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
-  
+
+  <div class="album-group msearch-group">
+    <h3 class="title-category">albums</h3>
+    <button type="button" class="v-all-btn" (click)="viewall()">
+      View All
+    </button>
+    <ul class="album-list msearch-list">
+      <li *ngFor="let album of albumResult" (click)="gettop(album)">
+        <div class="album">
+          <img src="{{ album.image[1].link }}" alt="" class="album-art" />
+          <p class="album-name" [innerHTML]="album.name"></p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="playlist-group msearch-group">
+    <h3 class="title-category">best match</h3>
+    <button type="button" class="v-all-btn" (click)="viewall()">
+      View All
+    </button>
+    <ul class="play-list msearch-list">
+      <li *ngFor="let topQuery of topQuery" (click)="gettop(topQuery)">
+        <div class="playlist">
+          <img src="{{ topQuery.image[1].link }}" alt="" class="plist-art" />
+          <p class="plist-name" [innerHTML]="topQuery.name"></p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="playlist-group msearch-group">
+    <h3 class="title-category">PLAYLIST</h3>
+    <button type="button" class="v-all-btn" (click)="viewall()">
+      View All
+    </button>
+    <ul class="play-list msearch-list">
+      <li *ngFor="let plist of playlistResult" (click)="gettop(plist, true)">
+        <div class="playlist">
+          <img src="{{ plist.image[1].link }}" alt="" class="plist-art" />
+          <p class="plist-name" [innerHTML]="plist.title"></p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <mat-card
+    class="example-card"
+    *ngFor="let song of songResult"
+    (click)="getsong(song)"
+  >
+    <mat-card-header>
+      <img mat-card-sm-image src="{{ song.image[2].link }}" />
+      <mat-card-title-group>
+        <mat-card-title [innerHTML]="song.name"></mat-card-title>
+        <mat-card-subtitle [innerHTML]="song.album.name"></mat-card-subtitle>
+        <mat-card-subtitle
+          [innerHTML]="song.primaryArtists"
+        ></mat-card-subtitle>
+      </mat-card-title-group>
+    </mat-card-header>
+  </mat-card>
+</div>

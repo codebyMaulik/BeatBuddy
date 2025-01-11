@@ -1,1 +1,10 @@
 node_modules
+# Ignore all JSON files
+*.json
+
+# Ignore all .pack files
+*.pack
+
+//https://meet.google.com/etb-kvqg-tym
+//drop.lol/NFEXW
+//8160192188!Codepen

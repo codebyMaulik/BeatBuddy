@@ -62,7 +62,6 @@ export class MiniPlayerComponent implements OnInit {
 
   playAudio(index?) {
     this.current = index;
-    console.log(this.queue[index]);
     this.currentSong = [];
     this.currentSong = [
       {
@@ -71,10 +70,10 @@ export class MiniPlayerComponent implements OnInit {
           this.queue[index].downloadUrl[4].url,
         title: this.queue[index].name,
         Artist: this.queue[index].artists.primary[0].name,
-        art: this.queue[index].image[1].link,
+        art: this.queue[index].image[1].url,
       },
     ];
-    console.log("playing-right-now", this.currentSong);
+    console.log("current-song", this.queue[index]);
     this.audio = this._audioRef.nativeElement;
     this.audio.load();
     this.audio.play();
@@ -109,10 +108,8 @@ export class MiniPlayerComponent implements OnInit {
   }
   playPause(isplay?) {
     if (this.isPlay) {
-      console.log("here");
       this.audio.pause();
     } else {
-      console.log("there");
       this.audio.play();
     }
     this.isPlay = !this.isPlay;
@@ -125,7 +122,6 @@ export class MiniPlayerComponent implements OnInit {
     }
   }
   volume(value) {
-    console.log(value.target.value);
     this.audio.currentTime = value.target.value;
     // this.soncurrenttime = this.audio.currentTime;
   }
