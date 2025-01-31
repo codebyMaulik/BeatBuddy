@@ -29,7 +29,7 @@ export class SaavanService {
   }
 
   getTrending() {
-    let encodeUrl = this.jiosaavaUrl + "modules?language=hindi,english";
+    let encodeUrl = this.jiosaavaUrl + "modules?language=english";
     return this._httpclient.get(encodeUrl);
   }
 

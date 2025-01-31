@@ -26,7 +26,7 @@
 </div>
 
 <div class="my-player" [ngClass]="queue.length > 0 ? 'active' : ''">
-  <div class="player">
+  <div class="player" [ngClass]="isplayerOpen ? 'active' : ''">
     <div class="top">
       <input
         class="progressbar"
@@ -43,6 +43,7 @@
           <img
             [src]="currentSong[0].art != '' ? currentSong[0].art : defultart"
             alt=""
+            (click)="togglePlayer()"
           />
         </div>
         <div class="song-detail">

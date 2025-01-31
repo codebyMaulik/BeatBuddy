@@ -29,6 +29,7 @@ export class MiniPlayerComponent implements OnInit {
   @ViewChild("audioElement", { static: false })
   public _audioRef: ElementRef;
   private audio: HTMLMediaElement;
+  isplayerOpen = false;
 
   constructor(
     private _getsong: AddSongService,
@@ -186,5 +187,8 @@ export class MiniPlayerComponent implements OnInit {
         this.playPrevSong()
       );
     }
+  }
+  togglePlayer() {
+    this.isplayerOpen = !this.isplayerOpen;
   }
 }
