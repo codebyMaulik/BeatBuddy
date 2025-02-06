@@ -118,6 +118,7 @@ mat-card {
     position: relative;
     flex-flow: column;
     height: 80px;
+    max-width: 500px;
     * {
       transition: all 0.6s ease-in-out;
     }
@@ -169,9 +170,10 @@ mat-card {
             margin-bottom: 5px;
             white-space: nowrap;
             text-overflow: ellipsis;
-            width: calc(100% - 30px);
+            // width: calc(100% - 30px);
             overflow: hidden;
             font-weight: 800;
+            margin-top: 0px;
           }
           .sub-detail {
             font-size: 12px;
@@ -181,6 +183,7 @@ mat-card {
             width: calc(100% - 30px);
             overflow: hidden;
             color: yellowgreen;
+            margin: 0;
           }
           .button-group {
             margin-top: 5px;

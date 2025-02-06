@@ -17,14 +17,23 @@ export class AppComponent implements OnInit {
   topAlbums;
   Slidercurrent: number = 0;
   timerSubscription: Subscription;
+  isHindi: boolean = false;
   constructor(
     private _saavan: SaavanService,
     private _addSong: AddSongService
   ) {}
 
   ngOnInit() {
-    this._saavan.getTrending().subscribe((data) => {
-      this.trending = data["data"].trending.albums;
+    this.changeLanguage("english");
+  }
+  changeLanguage(language: any) {
+    const _language = language;
+    _language == "hindi" ? (this.isHindi = true) : (this.isHindi = false);
+    this._saavan.getTrending(_language).subscribe((data) => {
+      this.trending = {
+        albums: data["data"].trending.albums,
+        songs: data["data"].trending.songs,
+      };
       this.playlist = data["data"].playlists;
       this.charts = data["data"].charts;
       this.topAlbums = data["data"].albums;
@@ -36,6 +45,9 @@ export class AppComponent implements OnInit {
         })
       )
       .subscribe();
+  }
+  getSingleSong(songinfo) {
+    this._addSong.changeMessage(songinfo, "any");
   }
   getsong(albuminfo) {
     this._saavan.getAlbum(albuminfo.id).subscribe((data) => {
